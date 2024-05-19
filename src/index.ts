@@ -4,20 +4,22 @@ import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHt
 import { createServer } from 'http';
 import { expressMiddleware } from '@apollo/server/express4';
 import gql from 'graphql-tag';
+import { typeDefs } from './graphql/typeDefs.js';
+import { resolvers } from './graphql/resolvers.js';
 
-// Construct schema
-const typeDefs = gql`
-  type Query {
-    hello: String
-  }
-`;
+// Construct schemas
+//const typeDefs = gql`
+  //type Query {
+    //hello: String
+  //}
+//`;
 
 // Resolver functions for schema
-const resolvers = {
-  Query: {
-    hello: () => 'Hello World!'
-  }
-};
+//const resolvers = {
+  //Query: {
+    //hello: () => 'Hello World!'
+  //}
+//};
 
 async function startApolloServer(typeDefs, resolvers) {
   const app = express();
@@ -27,8 +29,8 @@ async function startApolloServer(typeDefs, resolvers) {
   app.use(express.json());
 
   const server = new ApolloServer({
-    typeDefs,
-    resolvers,
+    typeDefs, //definition of types of data
+    resolvers, 
     plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
   });
 
